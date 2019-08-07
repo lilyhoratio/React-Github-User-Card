@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import axios from "axios";
 import UserCard from "./components/UserCard";
 import FollowersList from "./components/FollowersList";
+import 'semantic-ui-css/semantic.min.css';
 
 export class App extends Component {
   constructor() {
@@ -13,29 +14,27 @@ export class App extends Component {
     };
   }
 
-  //lifecycle methods
   componentDidMount() {
     // v1 - using axios
     // axios.get("https://api.github.com/users/lilyhoratio").then(response => {
     //   this.setState({ user: response.data });
     // });
     // axios
-    // .get("https://api.github.com/users/lilyhoratio/followers")
-    // .then(response => {
-    //   this.setState({ followers: response.data })
-    // });
+    //   .get("https://api.github.com/users/lilyhoratio/followers")
+    //   .then(response => {
+    //     this.setState({ followers: response.data });
+    //   });
+    // console.log(this.state.user);
     //v2 - using native fetch
-    fetch(`https://api.github.com/users/${this.state.githubUser}`)
+    fetch(`https://api.github.com/users/lilyhoratio`)
       .then(response => response.json())
       .then(userInfo => this.setState({ user: userInfo }))
       .catch(err => console.log(err));
-    console.log("state.user: ", this.state.user);
-
-    fetch(`https://api.github.com/users/${this.state.githubUser}/followers`)
+    fetch(`https://api.github.com/users/lilyhoratio/followers`)
       .then(response => response.json())
-      // .then(data => console.log(data));
       .then(followersInfo => this.setState({ followers: followersInfo }))
       .catch(err => console.log(err));
+    console.log("state.user: ", this.state.user);
     console.log("state.followers: ", this.state.followers);
   }
 
