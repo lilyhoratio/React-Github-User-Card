@@ -8,15 +8,16 @@ export class App extends Component {
     super();
     this.state = {
       user: {},
-      followers: []
+      followers: [],
+      githubUser: "lilyhoratio"
     };
   }
 
   //lifecycle methods
   componentDidMount() {
     // v1 - using axios
-    // axios.get("https://api.github.com/users/lilyhoratio").then(res => {
-    //   this.setState({ user: res.data });
+    // axios.get("https://api.github.com/users/lilyhoratio").then(response => {
+    //   this.setState({ user: response.data });
     // });
     // axios
     // .get("https://api.github.com/users/lilyhoratio/followers")
@@ -24,6 +25,18 @@ export class App extends Component {
     //   this.setState({ followers: response.data })
     // });
     //v2 - using native fetch
+    fetch(`https://api.github.com/users/${this.state.githubUser}`)
+      .then(response => response.json())
+      .then(userInfo => this.setState({ user: userInfo }))
+      .catch(err => console.log(err));
+    console.log("state.user: ", this.state.user);
+
+    fetch(`https://api.github.com/users/${this.state.githubUser}/followers`)
+      .then(response => response.json())
+      // .then(data => console.log(data));
+      .then(followersInfo => this.setState({ followers: followersInfo }))
+      .catch(err => console.log(err));
+    console.log("state.followers: ", this.state.followers);
   }
 
   render() {
